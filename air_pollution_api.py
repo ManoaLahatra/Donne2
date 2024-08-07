@@ -1,12 +1,7 @@
 import requests as rq
 import pandas as pd
-
-demographic_df = pd.read_csv('/home/haja/PycharmProjects/airPollution/Demographic_Data.csv')
-geographic_df = pd.read_csv('/home/haja/PycharmProjects/airPollution/Geographic_Data.csv')
-location_df = pd.merge(demographic_df, geographic_df, "inner", on='Location')
-
-print(location_df)
-
+from transform import transform_data
+from load import load_data
 API_KEY = '9adf7bbe7303db96a2a02a507440f534'
 url = f'https://api.openweathermap.org/data/2.5/air_pollution'
 
@@ -21,38 +16,43 @@ cities = {
 
 data_list = []
 
-for city, coords in cities.items():
-    if city in location_df['Location'].values :
-        lat = coords['lat']
-        lon = coords['lon']
-        response = rq.get(f'{url}?lat={lat}&lon={lon}&appid={API_KEY}')
+def extract_data():
+    demographic_df = pd.read_csv('/home/haja/PycharmProjects/airPollution/Demographic_Data.csv')
+    geographic_df = pd.read_csv('/home/haja/PycharmProjects/airPollution/Geographic_Data.csv')
+    location_df = transform_data(demographic_df, geographic_df)  # Utilise la fonction transform ici
 
-    if response.status_code == 200:
-        data = response.json()
-        coord = data.get('coord', {})
-        aqi = data['list'][0]['main'].get('aqi', None)
-        components = data['list'][0]['components']
-        dt = data['list'][0].get('dt', None)
+    for city, coords in cities.items():
+        if city in location_df['Location'].values:
+            lat = coords['lat']
+            lon = coords['lon']
+            response = rq.get(f'{url}?lat={lat}&lon={lon}&appid={API_KEY}')
 
-        data_list.append({
-            'Location': city,
-            'Latitude': coord.get('lat', None),
-            'Longitude': coord.get('lon', None),
-            'AQI': aqi,
-            'CO': components.get('co', None),
-            'NO': components.get('no', None),
-            'NO2': components.get('no2', None),
-            'O3': components.get('o3', None),
-            'SO2': components.get('so2', None),
-            'PM2_5': components.get('pm2_5', None),
-            'PM10': components.get('pm10', None),
-            'NH3': components.get('nh3', None),
-            'Timestamp': dt
-        })
-    else:
-        print(f"error for {city}: {response.status_code}")
+            if response.status_code == 200:
+                data = response.json()
+                coord = data.get('coord', {})
+                aqi = data['list'][0]['main'].get('aqi', None)
+                components = data['list'][0]['components']
+                dt = data['list'][0].get('dt', None)
 
-result_df = pd.DataFrame(data_list)
+                data_list.append({
+                    'Location': city,
+                    'Latitude': coord.get('lat', None),
+                    'Longitude': coord.get('lon', None),
+                    'AQI': aqi,
+                    'CO': components.get('co', None),
+                    'NO': components.get('no', None),
+                    'NO2': components.get('no2', None),
+                    'O3': components.get('o3', None),
+                    'SO2': components.get('so2', None),
+                    'PM2_5': components.get('pm2_5', None),
+                    'PM10': components.get('pm10', None),
+                    'NH3': components.get('nh3', None),
+                    'Timestamp': dt
+                })
+            else:
+                print(f"error for {city}: {response.status_code}")
 
-result_df.to_csv('/home/haja/PycharmProjects/airPollution/air_pollution_data.csv', index=False)
+    result_df = pd.DataFrame(data_list)
+    return load_data(result_df)
+
 
