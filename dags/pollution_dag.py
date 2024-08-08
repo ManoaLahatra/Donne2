@@ -1,11 +1,13 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 import pendulum
+import sys
+from task.air_pollution_api import extract_data
 
-# Importing the task functions
-from air_pollution_api import extract_data
-from transform import transform_data
-from load import load_data
+sys.path.append('/home/haja/PycharmProjects/airPollution/dags/task')
+from task.transform import transform_data
+sys.path.append('/home/haja/PycharmProjects/airPollution/dags/task')
+from task.load import load_data
 
 default_args = {
     'owner': 'airflow',
@@ -16,15 +18,14 @@ default_args = {
 }
 
 dag = DAG(
-    'first_dag',
+    'pollution_dags',
     default_args=default_args,
     description='A simple ETL DAG',
-    schedule='@daily',  # Remplacer schedule_interval par schedule
-    start_date=pendulum.today('UTC').add(days=-1),  # Utiliser pendulum pour la date de début
+    schedule='@daily',
+    start_date=pendulum.today('UTC').add(days=-1),
     catchup=False,
 )
 
-# Define the tasks
 extract_1 = PythonOperator(
     task_id='extract_1',
     python_callable=extract_data,
@@ -32,7 +33,7 @@ extract_1 = PythonOperator(
 )
 
 transform = PythonOperator(
-    task_id='transform_data',
+    task_id='transform',
     python_callable=transform_data,
     dag=dag,
 )
@@ -43,5 +44,4 @@ load = PythonOperator(
     dag=dag,
 )
 
-# Set the task dependencies
 extract_1 >> transform >> load
