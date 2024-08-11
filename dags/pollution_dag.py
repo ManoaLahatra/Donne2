@@ -2,8 +2,9 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 import pendulum
 import sys
-from task.air_pollution_api import extract_data
 
+
+from task.air_pollution_api import extract_data
 sys.path.append('/home/haja/PycharmProjects/airPollution/dags/task')
 from task.transform import transform_data
 sys.path.append('/home/haja/PycharmProjects/airPollution/dags/task')

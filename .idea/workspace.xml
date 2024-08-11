@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28151005-7a84-4c85-8543-7f8102a9eced" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/air_pollution_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/task/air_pollution_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extract_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/extract_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/task/load.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pollution_dag.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/pollution_dag.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transform.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/task/transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dags/pollution_dag.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/pollution_dag.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dags/task/air_pollution_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/dags/task/air_pollution_api.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +83,9 @@
       <workItem from="1723047179264" duration="15436000" />
       <workItem from="1723065608820" duration="4218000" />
       <workItem from="1723086302545" duration="3939000" />
-      <workItem from="1723137159336" duration="1420000" />
+      <workItem from="1723137159336" duration="2118000" />
+      <workItem from="1723399505331" duration="2203000" />
+      <workItem from="1723402070896" duration="1916000" />
     </task>
     <servers />
   </component>
