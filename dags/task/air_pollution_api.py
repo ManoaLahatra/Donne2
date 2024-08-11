@@ -8,9 +8,8 @@ sys.path.append('/home/riantsoa/airflow/dags/task')
 from transform import transform_data, transform_to_dataframe
 from load import load_data
 
-OPENWEATHER_API_KEY = '9adf7bbe7303db96a2a02a507440f534'
 def extract_data():
-    API_KEY = os.getenv('OPENWEATHER_API_KEY')
+    API_KEY = '9adf7bbe7303db96a2a02a507440f534'
     url = 'https://api.openweathermap.org/data/2.5/air_pollution'
 
     cities = {
