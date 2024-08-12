@@ -23,8 +23,8 @@ def extract_data():
 
     data_list = []
 
-    demographic_df = transform_to_dataframe('/home/riantsoa/airflow/data/Demographic_Data.csv')
-    geographic_df = transform_to_dataframe('/home/riantsoa/airflow/data/Geographic_Data.csv')
+    demographic_df = transform_to_dataframe('/home/riantsoa/airflow/Demographic_Data.csv')
+    geographic_df = transform_to_dataframe('/home/riantsoa/airflow/Geographic_Data.csv')
     location_df = transform_data(demographic_df, geographic_df, "inner", on='Location')
 
     for city, coords in cities.items():
